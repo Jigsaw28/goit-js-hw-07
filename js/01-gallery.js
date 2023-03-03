@@ -22,14 +22,26 @@ const markup = galleryItems
   .join("");
 gallery.insertAdjacentHTML("afterbegin", markup);
 
-gallery.addEventListener("click", (event) => {
+gallery.addEventListener("click", onCreateModal);
+function onCreateModal(event) {
     event.preventDefault();
   const instance = basicLightbox.create(`
     <img  src="${event.target.dataset.source}">
 `)
-
 instance.show()
-});
+
+document.addEventListener('keydown', onCloseModal);
+function onCloseModal(event) {
+  const visible = instance.visible()
+  if(event.key === "Escape" && visible) {
+     instance.close();
+     console.log(event.key)
+  }
+}
+}
+
+
+
 
 
 
